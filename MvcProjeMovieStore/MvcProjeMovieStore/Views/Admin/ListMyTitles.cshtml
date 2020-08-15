@@ -1,0 +1,42 @@
+﻿
+@model MvcProjeMovieStore.Models.ViewModels.ListTitlesViewModel
+
+@{
+    ViewBag.Title = "List Titles";
+}
+
+<h2>List Titles</h2>
+<hr />
+
+@if (TempData["message"] != null)
+{
+    <div class="alert alert-info" role="alert">@TempData["message"]</div>
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-8 col-md-offset-2">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Title Name</th>
+                        <th colspan="2">@Html.ActionLink("Add Title", "AddMyTitle", null, new { @class = "btn btn-default btn-block" })</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Titles)
+                    {
+                        <tr>
+                            <td>@item.TitleID</td>
+                            <td>@item.Name</td>
+                            <td>@Html.ActionLink("Update", "UpdateMyTitle", new { id = item.TitleID },new { @class = "btn btn-xs btn-block btn-primary" })</td>
+                            <td>@Html.ActionLink("Delete", "DeleteMyTitle", new { id = item.TitleID }, new { @class = "btn btn-xs btn-block btn-danger" })</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,274 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MovieStoreModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="CategoryID" />
+    </Key>
+    <Property Name="CategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CategoryName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Movies" Relationship="Self.FK_Movies_Categories" FromRole="Categories" ToRole="Movies" />
+  </EntityType>
+  <EntityType Name="CustomerDetail">
+    <Key>
+      <PropertyRef Name="CustomerDetailID" />
+    </Key>
+    <Property Name="CustomerDetailID" Type="Int32" Nullable="false" />
+    <Property Name="Mail" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Phone1" Type="String" MaxLength="11" FixedLength="true" Unicode="false" />
+    <Property Name="Phone2" Type="String" MaxLength="11" FixedLength="true" Unicode="false" />
+    <Property Name="Phone3" Type="String" MaxLength="11" FixedLength="true" Unicode="false" />
+    <Property Name="KrediCartInfo1" Type="String" MaxLength="14" FixedLength="true" Unicode="false" />
+    <Property Name="KrediCartInfo2" Type="String" MaxLength="14" FixedLength="true" Unicode="false" />
+    <Property Name="KrediCartInfo3" Type="String" MaxLength="14" FixedLength="true" Unicode="false" />
+    <Property Name="BirthOfDate" Type="DateTime" Precision="0" />
+    <Property Name="TcIdentity" Type="String" MaxLength="11" FixedLength="true" Unicode="false" />
+    <NavigationProperty Name="Customer" Relationship="Self.FK_CustomerDetails_Customers" FromRole="CustomerDetails" ToRole="Customers" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="CustomerID" />
+    </Key>
+    <Property Name="CustomerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="LastName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Confirmation" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="CustomerDetail" Relationship="Self.FK_CustomerDetails_Customers" FromRole="Customers" ToRole="CustomerDetails" />
+    <NavigationProperty Name="OrdersCustomers" Relationship="Self.FK_OrdersCustomers_Customers" FromRole="Customers" ToRole="OrdersCustomers" />
+  </EntityType>
+  <EntityType Name="EmployeeDetail">
+    <Key>
+      <PropertyRef Name="EmployeeDetailID" />
+    </Key>
+    <Property Name="EmployeeDetailID" Type="Int32" Nullable="false" />
+    <Property Name="MiddleName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Salary" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="DateOfStart" Type="DateTime" Precision="0" />
+    <Property Name="DateOfBirth" Type="DateTime" Precision="0" />
+    <Property Name="Phone1" Type="String" MaxLength="11" FixedLength="true" Unicode="false" />
+    <Property Name="Phone2" Type="String" MaxLength="11" FixedLength="true" Unicode="false" />
+    <Property Name="Phone3" Type="String" MaxLength="11" FixedLength="true" Unicode="false" />
+    <Property Name="BankAccountNo" Type="String" MaxLength="14" FixedLength="true" Unicode="false" />
+    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_EmployeeDetail_Employees" FromRole="EmployeeDetail" ToRole="Employees" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="EmployeeID" />
+    </Key>
+    <Property Name="EmployeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TitleId" Type="Int32" />
+    <Property Name="FirstName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="LastName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="EmployeeDetail" Relationship="Self.FK_EmployeeDetail_Employees" FromRole="Employees" ToRole="EmployeeDetail" />
+    <NavigationProperty Name="Title" Relationship="Self.FK_Employees_Titles" FromRole="Employees" ToRole="Titles" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Employees1" FromRole="Employees" ToRole="Orders" />
+  </EntityType>
+  <EntityType Name="Movy">
+    <Key>
+      <PropertyRef Name="MovieID" />
+    </Key>
+    <Property Name="MovieID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CategoryId" Type="Int32" />
+    <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ReleaseDate" Type="DateTime" Precision="0" />
+    <Property Name="Hour" Type="Int16" />
+    <Property Name="Subject" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Category" Relationship="Self.FK_Movies_Categories" FromRole="Movies" ToRole="Categories" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="OrderID" />
+    </Key>
+    <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SubscriptionDateId" Type="Int32" />
+    <Property Name="EmployeeId" Type="Int32" />
+    <Property Name="OrderDate" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_Orders_Employees1" FromRole="Orders" ToRole="Employees" />
+    <NavigationProperty Name="SubscriptionDate" Relationship="Self.FK_Orders_SubscriptionDates" FromRole="Orders" ToRole="SubscriptionDates" />
+    <NavigationProperty Name="OrdersCustomers" Relationship="Self.FK_OrdersCustomers_Orders" FromRole="Orders" ToRole="OrdersCustomers" />
+  </EntityType>
+  <EntityType Name="OrdersCustomer">
+    <Key>
+      <PropertyRef Name="OrderID" />
+      <PropertyRef Name="CustomerID" />
+    </Key>
+    <Property Name="OrderID" Type="Int32" Nullable="false" />
+    <Property Name="CustomerID" Type="Int32" Nullable="false" />
+    <Property Name="SubPrice" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <NavigationProperty Name="Customer" Relationship="Self.FK_OrdersCustomers_Customers" FromRole="OrdersCustomers" ToRole="Customers" />
+    <NavigationProperty Name="Order" Relationship="Self.FK_OrdersCustomers_Orders" FromRole="OrdersCustomers" ToRole="Orders" />
+  </EntityType>
+  <EntityType Name="SubscriptionDate">
+    <Key>
+      <PropertyRef Name="SubscriptionDateID" />
+    </Key>
+    <Property Name="SubscriptionDateID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DateName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_SubscriptionDates" FromRole="SubscriptionDates" ToRole="Orders" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Title">
+    <Key>
+      <PropertyRef Name="TitleID" />
+    </Key>
+    <Property Name="TitleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Employees" Relationship="Self.FK_Employees_Titles" FromRole="Titles" ToRole="Employees" />
+  </EntityType>
+  <Association Name="FK_Movies_Categories">
+    <End Role="Categories" Type="Self.Category" Multiplicity="0..1" />
+    <End Role="Movies" Type="Self.Movy" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categories">
+        <PropertyRef Name="CategoryID" />
+      </Principal>
+      <Dependent Role="Movies">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CustomerDetails_Customers">
+    <End Role="Customers" Type="Self.Customer" Multiplicity="1" />
+    <End Role="CustomerDetails" Type="Self.CustomerDetail" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Customers">
+        <PropertyRef Name="CustomerID" />
+      </Principal>
+      <Dependent Role="CustomerDetails">
+        <PropertyRef Name="CustomerDetailID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrdersCustomers_Customers">
+    <End Role="Customers" Type="Self.Customer" Multiplicity="1" />
+    <End Role="OrdersCustomers" Type="Self.OrdersCustomer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customers">
+        <PropertyRef Name="CustomerID" />
+      </Principal>
+      <Dependent Role="OrdersCustomers">
+        <PropertyRef Name="CustomerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmployeeDetail_Employees">
+    <End Role="Employees" Type="Self.Employee" Multiplicity="1" />
+    <End Role="EmployeeDetail" Type="Self.EmployeeDetail" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Employees">
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="EmployeeDetail">
+        <PropertyRef Name="EmployeeDetailID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employees_Titles">
+    <End Role="Titles" Type="Self.Title" Multiplicity="0..1" />
+    <End Role="Employees" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Titles">
+        <PropertyRef Name="TitleID" />
+      </Principal>
+      <Dependent Role="Employees">
+        <PropertyRef Name="TitleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orders_Employees1">
+    <End Role="Employees" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employees">
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="EmployeeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Orders_SubscriptionDates">
+    <End Role="SubscriptionDates" Type="Self.SubscriptionDate" Multiplicity="0..1" />
+    <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SubscriptionDates">
+        <PropertyRef Name="SubscriptionDateID" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="SubscriptionDateId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrdersCustomers_Orders">
+    <End Role="Orders" Type="Self.Order" Multiplicity="1" />
+    <End Role="OrdersCustomers" Type="Self.OrdersCustomer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="OrderID" />
+      </Principal>
+      <Dependent Role="OrdersCustomers">
+        <PropertyRef Name="OrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MovieStoreEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Categories" EntityType="Self.Category" />
+    <EntitySet Name="CustomerDetails" EntityType="Self.CustomerDetail" />
+    <EntitySet Name="Customers" EntityType="Self.Customer" />
+    <EntitySet Name="EmployeeDetails" EntityType="Self.EmployeeDetail" />
+    <EntitySet Name="Employees" EntityType="Self.Employee" />
+    <EntitySet Name="Movies" EntityType="Self.Movy" />
+    <EntitySet Name="Orders" EntityType="Self.Order" />
+    <EntitySet Name="OrdersCustomers" EntityType="Self.OrdersCustomer" />
+    <EntitySet Name="SubscriptionDates" EntityType="Self.SubscriptionDate" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="Titles" EntityType="Self.Title" />
+    <AssociationSet Name="FK_Movies_Categories" Association="Self.FK_Movies_Categories">
+      <End Role="Categories" EntitySet="Categories" />
+      <End Role="Movies" EntitySet="Movies" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CustomerDetails_Customers" Association="Self.FK_CustomerDetails_Customers">
+      <End Role="Customers" EntitySet="Customers" />
+      <End Role="CustomerDetails" EntitySet="CustomerDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrdersCustomers_Customers" Association="Self.FK_OrdersCustomers_Customers">
+      <End Role="Customers" EntitySet="Customers" />
+      <End Role="OrdersCustomers" EntitySet="OrdersCustomers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmployeeDetail_Employees" Association="Self.FK_EmployeeDetail_Employees">
+      <End Role="Employees" EntitySet="Employees" />
+      <End Role="EmployeeDetail" EntitySet="EmployeeDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employees_Titles" Association="Self.FK_Employees_Titles">
+      <End Role="Titles" EntitySet="Titles" />
+      <End Role="Employees" EntitySet="Employees" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_Employees1" Association="Self.FK_Orders_Employees1">
+      <End Role="Employees" EntitySet="Employees" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_SubscriptionDates" Association="Self.FK_Orders_SubscriptionDates">
+      <End Role="SubscriptionDates" EntitySet="SubscriptionDates" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrdersCustomers_Orders" Association="Self.FK_OrdersCustomers_Orders">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="OrdersCustomers" EntitySet="OrdersCustomers" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
